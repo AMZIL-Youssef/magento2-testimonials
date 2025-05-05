@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <title>Testimonials</title>
+        <css src="Sda_Testimonials::css/custom-listing.css"/>
+        <css src="Sda_Testimonials::css/stats.css"/>
+    </head>
+    <body>
+        <referenceContainer name="content">
+            <block class="Sda\Testimonials\Block\Adminhtml\Stats" name="stats"
+                template="Sda_Testimonials::stats.phtml"/>
+            <uiComponent name="sda_testimonials_listing"/>
+        </referenceContainer>
+    </body>
+</page>

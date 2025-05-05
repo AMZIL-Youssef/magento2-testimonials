@@ -1,0 +1,34 @@
+.modal-popup.testimonial-modal {
+  background: transparent !important;
+  border: none            !important;
+  box-shadow: none        !important;
+}
+
+.modal-popup.testimonial-modal > .modal-inner-wrap {
+  background: transparent !important;
+  padding: 0               !important;
+  box-shadow: none         !important;
+  border: none             !important;
+}
+
+.modal-popup.testimonial-modal .modal-content {
+  background: transparent !important;
+  padding: 0               !important;
+  margin: 0               !important;
+}
+
+.modal-popup.testimonial-modal .modal-header,
+.modal-popup.testimonial-modal .modal-footer {
+  display: none            !important;
+}
+
+.testimonial-form {
+  background: #fff          !important;
+  padding: 25px             !important;
+  border-radius: 12px       !important;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1) !important;
+  max-width: 600px;
+  margin: 30px auto;
+}
+
+

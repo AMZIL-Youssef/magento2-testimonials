@@ -1,0 +1,22 @@
+<section class="page-contain" data-url="<?= $block->getUrl('testimonial/testimonialadmin/updatestats') ?>">
+  <div class="data-card">
+    <h3 id="totalCount"><?= $block->getTotalCount() ?></h3>
+    <h4>Testimonials total</h4>
+  </div>
+  <div class="data-card">
+    <h3 id="approvedCount"><?= $block->getApprovedCount() ?></h3>
+    <h4>Testimonials approved</h4>
+  </div>
+  <div class="data-card">
+    <h3 id="rejectedCount"><?= $block->getRejectedCount() ?></h3>
+    <h4>Testimonials rejected</h4>
+  </div>
+  <div class="data-card">
+    <h3 id="pendingCount"><?= $block->getPendingCount() ?></h3>
+    <h4>Testimonials pending</h4>
+  </div>
+  <div class="data-card">
+    <h3 id="avgRating"><?= $block->getAverageRating() ?></h3>
+    <h4>Rating</h4>
+  </div>
+</section>

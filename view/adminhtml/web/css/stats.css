@@ -1,0 +1,44 @@
+.page-contain {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: stretch;
+  gap: 1rem;
+  padding: 2rem;
+  overflow-x: auto;
+}
+
+.data-card {
+  position: relative;
+  flex: 1 1 18rem;
+  max-width: 25rem;
+  padding: 1.5rem 1.25rem;
+  background: #eeeaea;
+  border-radius: 0.5rem;
+  box-shadow: 0 0.5rem 1rem rgba(0,0,0,0.05);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.data-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 1rem 2rem rgba(0,0,0,0.1);
+}
+
+/* Main number */
+.data-card h3 {
+  margin: 0;
+  font-size: 2.5rem;
+  line-height: 1;
+  color: #2E3C40;
+  border-bottom: 3px solid #53483E;
+  padding-bottom: 0.5rem;
+}
+
+.data-card h4 {
+  margin: 1rem 0 0;
+  font-size: 1.125rem;
+  text-transform: uppercase;
+  color: #627084;
+  letter-spacing: 0.05em;
+  line-height: 1.2;
+}

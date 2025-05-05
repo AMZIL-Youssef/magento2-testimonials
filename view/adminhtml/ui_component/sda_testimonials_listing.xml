@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<listing 
+    name="sda_testimonials_listing"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="component" xsi:type="string">Magento_Ui/js/grid/listing</item>
+            <item name="provider" xsi:type="string">sda_testimonials_listing.sda_testimonials_listing_data_source</item>
+            <item name="deps" xsi:type="string">sda_testimonials_listing.sda_testimonials_listing_data_source</item>
+        </item>
+        <item name="spinner" xsi:type="string">sda_testimonials_listing_columns</item>
+    </argument>
+
+    <!-- Toolbar with search/filter and pagination -->
+    <listingToolbar name="listing_top">
+        <!-- <filterSearch name="fulltext" /> -->
+        <columnsControls name="columns_controls"/>
+        <filters name="listing_filters" />
+        <paging name="listing_paging" />
+    </listingToolbar>
+
+    <dataSource 
+        name="sda_testimonials_listing_data_source" 
+        component="Magento_Ui/js/grid/provider">
+        <argument name="dataProvider" xsi:type="configurableObject">
+            <argument name="class" xsi:type="string">Sda\Testimonials\Ui\Component\Listing\DataProvider</argument>
+            <argument name="name" xsi:type="string">sda_testimonials_listing_data_source</argument>
+            <argument name="primaryFieldName" xsi:type="string">testimonial_id</argument>
+            <argument name="requestFieldName" xsi:type="string">testimonial_id</argument>
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="update_url" xsi:type="url" path="mui/index/render"/>
+                </item>
+            </argument>
+        </argument>
+        <settings>
+            <storageConfig>
+                <param name="indexField" xsi:type="string">testimonial_id</param>
+            </storageConfig>
+        </settings>
+    </dataSource>
+
+    <columns name="sda_testimonials_listing_columns">
+        <column name="testimonial_id">
+            <settings>
+                <label>ID</label>
+                <filter>text</filter>
+                <sorting>asc</sorting>
+            </settings>
+        </column>
+        <column name="name">
+            <settings>
+                <label>Name</label>
+                <filter>text</filter>
+                <sorting>asc</sorting>
+            </settings>
+        </column>
+        <column name="email">
+            <settings>
+                <label>Email</label>
+                <filter>text</filter>
+            </settings>
+        </column>
+        <column name="rating">
+            <settings>
+                <label>Rating</label>
+                <filter>text</filter>
+            </settings>
+        </column>
+        <column name="comment">
+            <settings>
+                <label>Comment</label>
+                <filter>text</filter>
+            </settings>
+        </column>
+        <column name="status"
+            class="Magento\Ui\Component\Listing\Columns\Column"
+            component="Magento_Ui/js/grid/columns/select">
+            <settings>
+                <label>Status</label>
+                <filter>select</filter>
+                <dataType>select</dataType>
+                <options class="Sda\Testimonials\Ui\Component\Listing\Column\StatusOptions"/>
+            </settings>
+        </column>
+        <column name="created_at" class="Magento\Ui\Component\Listing\Columns\Date">
+            <settings>
+                <label>Created At</label>
+                <filter>dateRange</filter>
+                <dataType>date</dataType>
+                <sorting>desc</sorting>
+            </settings>
+        </column>
+        <column name="actions" class="Sda\Testimonials\Ui\Component\Listing\Column\ToggleActions">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="string" translate="true">Actions</item>
+                    <item name="sortable" xsi:type="boolean">false</item>
+                    <item name="filter" xsi:type="boolean">false</item>
+                    <item name="bodyTmpl" xsi:type="string">ui/grid/cells/html</item>
+                    <item name="escape" xsi:type="boolean">false</item>
+                </item>
+            </argument>
+        </column>
+    </columns>
+</listing>

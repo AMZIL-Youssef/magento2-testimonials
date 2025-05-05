@@ -1,0 +1,15 @@
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <css src="Sda_Testimonials::css/swiper-bundle.css"/>
+        <css src="Sda_Testimonials::css/testimonial_carousel.css"/>
+    </head>
+    <body>
+        <referenceContainer name="content.bottom">
+            <block class="Magento\Framework\View\Element\Template" name="testimonial_carousel" template="Sda_Testimonials::testimonial_carousel.phtml">
+                <arguments>
+                    <argument name="view_model" xsi:type="object">Sda\Testimonials\ViewModel\CarouselData</argument>
+                </arguments>
+            </block>
+        </referenceContainer>
+    </body>
+</page>

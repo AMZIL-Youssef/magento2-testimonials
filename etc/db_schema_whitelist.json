@@ -1,0 +1,17 @@
+{
+    "sda_testimonial": {
+        "column": {
+            "testimonial_id": true,
+            "name": true,
+            "email": true,
+            "rating": true,
+            "comment": true,
+            "status": true,
+            "created_at": true,
+            "updated_at": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    }
+}

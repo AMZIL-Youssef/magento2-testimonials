@@ -1,0 +1,127 @@
+<?php
+/** @var \Sda\Testimonials\ViewModel\CarouselData $viewModel */
+$viewModel = $block->getViewModel();
+$items = $viewModel->getCarouselItems();
+
+$slidesData = [];
+foreach ($items as $item) {
+    $slidesData[] = [
+        'name'       => $escaper->escapeHtml($item->getName()),
+        'rating'     => (int)$item->getRating(),
+        'comment'    => $escaper->escapeHtml($item->getComment()),
+        'createdAt'  => $block->formatDate($item->getCreatedAt(), \IntlDateFormatter::MEDIUM),
+        'avatarUrl'  => $block->getViewFileUrl('Sda_Testimonials/images/default-avatar.png'),
+    ];
+}
+
+$jsonSlides = json_encode($slidesData, JSON_HEX_TAG|JSON_HEX_APOS|JSON_HEX_QUOT);
+?>
+
+<h1 class="testimonial-title">Testimonials</h1>
+
+<div id="testimonial-rating-filter">
+    <label for="ratingFilter"><?= __('Filter by rating:') ?></label>
+    <select id="ratingFilter" name="rating" onchange="filterByRating(this.value)">
+        <option value=""><?= __('All') ?></option>
+        <?php for ($i = 5; $i >= 1; $i--): ?>
+            <option value="<?= $i ?>"><?= str_repeat('★', $i) ?></option>
+        <?php endfor; ?>
+    </select>
+</div>
+
+<div class="swiper mySwiper">
+  <div class="swiper-wrapper">
+
+    <?php foreach ($items as $item): ?>
+      <div class="swiper-slide">
+        <div class="testimonial-item">
+          <div class="testimonial-avatar">
+            <img src="<?= $block->getViewFileUrl('Sda_Testimonials/images/default-avatar.png') ?>" 
+                 alt="User avatar"
+                 class="avatar-image">
+          </div>
+          <h3><?= $escaper->escapeHtml($item->getName()) ?></h3>
+          <div class="rating">
+            <?php for ($i = 1; $i <= (int)$item->getRating(); $i++): ?>
+                <i>★</i>
+            <?php endfor; ?>
+          </div>
+          <p class="comment">
+            <?= $escaper->escapeHtml($item->getComment()) ?>
+          </p>
+          <p class="date">
+            <?= $block->formatDate($item->getCreatedAt(), \IntlDateFormatter::MEDIUM) ?>
+          </p>
+          
+        </div>
+      </div>
+    <?php endforeach; ?>
+
+  </div>
+
+  <div class="swiper-button-next"></div>
+  <div class="swiper-button-prev"></div>
+  <div class="swiper-pagination"></div>
+</div>
+
+<script>
+  require(['jquery', 'swiper'], function($, Swiper) {
+      'use strict';
+      $(function() {
+          var slidesData = <?= $jsonSlides ?>;
+          var swiper = new Swiper('.mySwiper', {
+              loop: true,
+              slidesPerView: 3,
+              spaceBetween: 30,
+              slidesPerGroup: 3,
+              loopFillGroupWithBlank: true,
+              navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+              },
+              pagination: {
+                el: '.swiper-pagination',
+                clickable: true,
+              },
+              breakpoints: {
+                640:  { slidesPerView: 1 },
+                768:  { slidesPerView: 2 },
+                1024: { slidesPerView: 3 }
+              }
+          });
+
+          $('#ratingFilter').on('change', function() {
+              var rating = parseInt(this.value) || null;
+
+              var filtered = slidesData.filter(function(item) {
+                  return !rating || item.rating === rating;
+              });
+
+              var newSlides = filtered.map(function(item) {
+                  return (
+                    '<div class="swiper-slide">' +
+                      '<div class="testimonial-item">' +
+                        '<div class="testimonial-avatar">' +
+                          '<img src="' + item.avatarUrl + '" class="avatar-image" alt="avatar"/>' +
+                        '</div>' +
+                        '<h3>' + item.name + '</h3>' +
+                        '<div class="rating"><i>' + '★'.repeat(item.rating) + '</i></div>' +
+                        '<p class="comment">' + item.comment + '</p>' +
+                        '<p class="date">' + item.createdAt + '</p>' +
+                      '</div>' +
+                    '</div>'
+                  );
+              });
+
+              swiper.removeAllSlides();
+              if (newSlides.length) {
+                  swiper.appendSlide(newSlides);
+              }
+
+              swiper.slideToLoop(0);
+          });
+
+
+      });
+  });
+</script>

@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+
+    <table name="sda_testimonial" resource="default" engine="innodb">
+        <column name="testimonial_id" xsi:type="int" unsigned="true" nullable="false" identity="true" />
+        <column name="name" xsi:type="varchar" nullable="false" length="255" />
+        <column name="email" xsi:type="varchar" nullable="false" length="255" />
+        <column name="rating" xsi:type="decimal" precision="3" scale="2" nullable="false" />
+        <column name="comment" xsi:type="text" nullable="true" />
+        <column name="status" xsi:type="smallint" nullable="false" default="0" />
+        <column name="created_at" xsi:type="timestamp" on_update="false" default="CURRENT_TIMESTAMP" nullable="false" />
+        <column name="updated_at" xsi:type="timestamp" on_update="true" default="CURRENT_TIMESTAMP" nullable="false" />
+
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="testimonial_id"/>
+        </constraint>
+    </table>
+
+</schema>

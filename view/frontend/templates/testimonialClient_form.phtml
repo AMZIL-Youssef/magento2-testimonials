@@ -1,0 +1,177 @@
+<?php /** @var $block \Magento\Framework\View\Element\Template */ ?>
+
+<style>
+    /* Modal popup */
+    .modal-popup.testimonial-modal {
+      background: transparent !important;
+      border: none !important;
+      box-shadow: none !important;
+    }
+
+    /* Inner wrap */
+    .modal-popup.testimonial-modal > .modal-inner-wrap {
+      background: transparent !important;
+      padding: 0 !important;
+      box-shadow: none !important;
+      border: none !important;
+    }
+
+    /* Content wrapper */
+    .modal-popup.testimonial-modal .modal-content {
+      background: transparent !important;
+      padding: 0 !important;
+      margin: 0 !important;
+    }
+
+    /* remove header/footer */
+    .modal-popup.testimonial-modal .modal-header,
+    .modal-popup.testimonial-modal .modal-footer {
+      display: none !important;
+    }
+
+    .testimonial-form {
+      background: #fff !important;
+      padding: 25px !important;
+      border-radius: 12px !important;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1) !important;
+      max-width: 600px;
+      margin: 30px auto;
+    }
+
+.testimonial-form {
+    background-color: #f9f9f9;
+    padding: 25px;
+    border-radius: 12px;
+    max-width: 600px;
+    margin: 30px auto;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.testimonial-form h2 {
+    text-align: center;
+    color: #333;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.testimonial-form label {
+    display: block;
+    margin-top: 15px;
+    font-weight: bold;
+    color: #555;
+}
+
+.testimonial-form input,
+.testimonial-form textarea {
+    width: 100%;
+    padding: 10px;
+    margin-top: 8px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+.testimonial-form select {
+    width: 100%;
+    padding: 4px;
+    margin-top: 8px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+.testimonial-form textarea {
+    resize: vertical;
+}
+
+.testimonial-form button {
+    margin-top: 20px;
+    background-color: #007bdb;
+    color: #fff;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    width: 100%;
+    font-size: 16px;
+}
+
+.testimonial-form button:hover {
+    background-color: #005fa3;
+}
+
+</style>
+
+<div id="testimonial-modal-content" style="display:none;">
+    <div class="testimonial-form">
+        <h2><?= __('Votre avis nous intéresse') ?></h2>
+        <form action="<?= $block->getUrl('testimonial/TestimonialClient/Store') ?>" method="post">
+            <input type="hidden" name="form_key" value="<?= $block->getFormKey() ?>" />
+
+            <label>Nom :</label>
+            <input type="text" name="name" required /><br/>
+
+            <label>Email :</label>
+            <input type="email" name="email" required /><br/>
+
+            <label>Note :</label>
+            <select name="rating" required>
+                <option value="5">★★★★★</option>
+                <option value="4">★★★★</option>
+                <option value="3">★★★</option>
+                <option value="2">★★</option>
+                <option value="1">★</option>
+            </select><br/>
+
+            <label>Commentaire :</label><br/>
+            <textarea name="comment" rows="5" required></textarea><br/>
+
+            <button type="submit" class="action primary"><?= __('Envoyer') ?></button>
+        </form>
+    </div>
+</div>
+
+<script type="text/javascript">
+require(['jquery', 'Magento_Ui/js/modal/modal'], function($, modal){
+    var options = {
+        type: 'popup',
+        modalClass: 'testimonial-modal',
+        title: false,
+        buttons: [],
+        clickableOverlay: true,
+        innerScroll: false
+    };
+    modal(options, $('#testimonial-modal-content'));
+
+    $(function(){
+        $('#testimonial-modal-content').modal('openModal');
+
+        $('#testimonial-modal-content form').on('submit', function(e) {
+            e.preventDefault();
+
+            var $form = $(this);
+            var formData = $form.serialize();
+            console.log($form.attr('action'));
+            $.ajax({
+                url: $form.attr('action'),
+                type: 'POST',
+                data: formData,
+                dataType: 'json',
+                success: function (res) {
+                    if (res.success) {
+                        alert(res.message || 'Merci pour votre témoignage !');
+                        $('#testimonial-modal-content').modal('closeModal');
+                    } else {
+                        alert(res.message || 'Erreur lors de l’envoi.');
+                    }
+                },
+                error: function (jqXHR) {
+                    console.error('Erreur AJAX:', jqXHR.responseText);
+                    alert('Une erreur est survenue.');
+                }
+            });
+        });
+
+    });
+});
+</script>

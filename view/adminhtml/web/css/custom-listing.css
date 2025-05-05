@@ -1,0 +1,23 @@
+.action-approve {
+    background-color: #28a745;
+    color: #fff;
+    padding: 5px 10px;
+    border-radius: 3px;
+    text-decoration: none;
+}
+
+.action-reject {
+    background-color: #ff5507;
+    color: #fff;
+    padding: 5px 10px;
+    border-radius: 3px;
+    text-decoration: none;
+}
+
+.action-delete {
+    background-color: #dc3545 !important;
+    color: #fff !important;
+    padding: 5px 10px !important;
+    border-radius: 3px !important;
+    text-decoration: none !important;
+}
